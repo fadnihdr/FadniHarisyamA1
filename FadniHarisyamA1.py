@@ -51,13 +51,10 @@ while True:
         item_list()
         userInput = input(menu).lower()
     elif userInput == "a":
-        try:
-            name = str(input("Name:\n"))
-            item_desc = str(input("Description:\n"))
-            cost = float(input("Cost:\n"))
-            item_add(name,item_desc,cost)
-        except:
-            print("Please put a valid value")
+        name = (input("Name:\n"))
+        item_desc = (input("Description:\n"))
+        cost = (input("Cost:\n"))
+        item_add(name,item_desc,cost)
         userInput = input(menu).lower()
 
 
