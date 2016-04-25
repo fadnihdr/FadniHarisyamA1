@@ -34,15 +34,8 @@ def item_hire():
 
 def item_add(name,item_desc,cost):
     with open('items.csv','a+') as items:
-        for words in readItem:
-            name,item_desc,cost,status = words.split(',')
-        items.write(name + item_desc + cost)
+        items.write("\n" + name + "," + item_desc + "," +  cost + "," + "in")
     items.close()
-
-
-
-
-
 
 
 while True:
@@ -58,10 +51,13 @@ while True:
         item_list()
         userInput = input(menu).lower()
     elif userInput == "a":
-        name = input("Name:\n")
-        item_desc = input("Description:\n")
-        cost = input("Cost:\n")
-        item_add(name,item_desc,cost)
+        try:
+            name = str(input("Name:\n"))
+            item_desc = str(input("Description:\n"))
+            cost = float(input("Cost:\n"))
+            item_add(name,item_desc,cost)
+        except:
+            print("Please put a valid value")
         userInput = input(menu).lower()
 
 
