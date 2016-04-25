@@ -12,14 +12,16 @@ userInput = input(menu).lower()
 
 def item_list():
     item_count = 0
+    with open('items.csv') as items:
         for words in readItem:
             name,item_desc,cost,status = words.split(',')
-            if status == 'in':
-                status = ''
-            elif status == 'out':
-                status = '*'
+            if "in" in status:
+                print("{:<3d} - {:<40s} = ${:>7,.2f} ".format(item_count, name + item_desc + ")", float(cost)))
+            elif 'out' in status:
+                print("{:}   - {:} = ${:>7,.2f} *".format(item_count, name + item_desc + ")", float(cost)))
+            item_count += 1
+    items.close()
 
-print(item_list)
 
 
 
@@ -29,11 +31,8 @@ while True:
         print ("{} items saved to items.csv")
         break
     elif userInput == "l":
-        for words in readItem:
-            name, item_desc, cost, status = words.split(",")
-        print(readItem)
+        item_list()
         userInput = input(menu).lower()
-    0
 
 
 
