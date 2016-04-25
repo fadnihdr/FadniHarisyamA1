@@ -24,11 +24,24 @@ def item_list():
 
 
 
+"""
 def item_hire():
     item_count = 0
     with open('items.csv') as items:
         items_line = items.readlines()
         user_hire = input("Enter the number of item to hire")
+"""
+
+def item_add(name,item_desc,cost):
+    with open('items.csv','a+') as items:
+        for words in readItem:
+            name,item_desc,cost,status = words.split(',')
+        items.write(name + item_desc + cost)
+    items.close()
+
+
+
+
 
 
 
@@ -43,6 +56,12 @@ while True:
         hireInput = str(input('\n'))
         item_hire(hireInput)
         item_list()
+        userInput = input(menu).lower()
+    elif userInput == "a":
+        name = input("Name:\n")
+        item_desc = input("Description:\n")
+        cost = input("Cost:\n")
+        item_add(name,item_desc,cost)
         userInput = input(menu).lower()
 
 
