@@ -11,18 +11,24 @@ readItem = openItem.readlines()
 userInput = input(menu).lower()
 
 def item_list():
-    item_count = 0
+    item_num = 0
     with open('items.csv') as items:
         for words in readItem:
             name,item_desc,cost,status = words.split(',')
             if "in" in status:
-                print("{:<3d} - {:<40s} = ${:>7,.2f} ".format(item_count, name + item_desc + ")", float(cost)))
+                print("{:} - {:<40s} = ${:>7,.2f}".format(item_num, name + "(" + item_desc + ")", float(cost)))
             elif 'out' in status:
-                print("{:}   - {:} = ${:>7,.2f} *".format(item_count, name + item_desc + ")", float(cost)))
-            item_count += 1
+                print("{:} - {:<40s} = ${:>7,.2f} *".format(item_num, name + "(" + item_desc + ")", float(cost)))
+            item_num += 1
     items.close()
 
 
+
+def item_hire():
+    item_count = 0
+    with open('items.csv') as items:
+        items_line = items.readlines()
+        user_hire = input("Enter the number of item to hire")
 
 
 
@@ -33,6 +39,12 @@ while True:
     elif userInput == "l":
         item_list()
         userInput = input(menu).lower()
+    elif userInput == "h":
+        hireInput = str(input('\n'))
+        item_hire(hireInput)
+        item_list()
+        userInput = input(menu).lower()
+
 
 
 
