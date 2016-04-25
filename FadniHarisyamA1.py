@@ -10,6 +10,18 @@ openItem = open('items.csv', 'r')
 readItem = openItem.readlines()
 userInput = input(menu).lower()
 
+def item_list():
+    item_count = 0
+        for words in readItem:
+            name,item_desc,cost,status = words.split(',')
+            if status == 'in':
+                status = ''
+            elif status == 'out':
+                status = '*'
+
+print(item_list)
+
+
 
 
 while True:
@@ -21,6 +33,7 @@ while True:
             name, item_desc, cost, status = words.split(",")
         print(readItem)
         userInput = input(menu).lower()
+    0
 
 
 
