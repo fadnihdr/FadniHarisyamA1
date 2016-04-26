@@ -60,10 +60,9 @@ while True:
             print("Please enter a valid integer")
             cost = int(input("Cost:"))
         items_write = open('items.csv', 'a')
-        print((name + "," + item_desc + "," + str(cost) + "," + "in\n"), file=items_write)
+        print((name + "," + item_desc + "," + str(cost) + "," + "in\n"), "items.csv")
         items_write.close()
         print("\n{} ({}), ${:.2f} now available for hire.".format(name, item_desc, cost))
-        num_lines = + 1
         userInput = input(menu).lower()
 
 
