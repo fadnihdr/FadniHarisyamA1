@@ -2,7 +2,7 @@
 for docstring
 '''
 
-num_lines = sum(1 for line in open('items.csv'))  #count the lines in a file(src = http://prntscr.com/awh2eh)
+num_lines = sum(1 for line in open('items.csv'))  """count the lines in a file(src = http://prntscr.com/awh2eh)"""
 print("Items for Hire - by Fadni Harisyam\n{} items loaded".format(num_lines)) #shows the amount of lines in a file
 
 menu = ("Menu:\n (L)ist all items\n (H)ire an item\n (R)eturn an item\n (A)dd new item to stock\n (Q)uit")
