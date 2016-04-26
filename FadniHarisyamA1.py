@@ -44,28 +44,36 @@ def item_hire():
         item_lines_list = file.readlines()
     for index, line in enumerate(item_lines_list):
         line_list.append(line)
-        name, item_desc, price, hire = line_list[index].split(',')
-        if 'in' in hire:
-            print("{:} - {:<40s} = ${:>7,.2f}".format(item_count, name + " (" + item_desc + ") ", float(price)))
+        name, item_desc, cost, status = line_list[index].split(',')
+        if 'in' in status:
+            print("{:} - {:<40s} = ${:>7,.2f}".format(item_count, name + " (" + item_desc + ") ", float(cost)))  #(1)
             list_num.append(item_count)
         item_count += 1
 
     if len(list_num) == 0:
-        print("Currently no item is available to hire")
+        print("No item is currently available for hire")  #(3)
     else:
         try:
 
             replace = int(input("Enter the number of an item to hire:\n"))
             if replace in list_num:
-                item_lines_list[replace] = item_lines_list[replace].replace('in', 'out')
+                item_lines_list[replace] = item_lines_list[replace].replace('in', 'out')  #(2)
                 with open('items.csv', 'w') as file:
                     file.writelines(item_lines_list)
                     name, desc, price, hire = line_list[replace].split(',')
-                    print("{} is hired for ${:.2f}".format(name, float(price)))
+                    print("{} is hired for ${:.2f}".format(name, float(price)))  #(4)
             else:
-                print("That item is not available for hire\n")
+                print("That item is not available for hire")  #(5)
         except:
             print("Invalid input")
+    """
+    this function will modify the status element in the strings in items.csv
+    (1)it will display the items that are present in items.csv
+    (2)it will change the hired item's status from "in" to "out"
+    (3)if there is no item available for hire, it will display "No item is currently available for hire"
+    (4)after the user successfully hired an item, the confirmation message will show up
+    (5)if the user input a number thats not in the list, an message will show up "That item is not available for hire"
+    """
 
 def item_return():
     item_count = 0
@@ -75,9 +83,9 @@ def item_return():
         item_lines_list = file.readlines()
     for index, line in enumerate(item_lines_list):
         line_list.append(line)
-        name, desc, price, hire = line_list[index].split(',')
-        if 'out' in hire:
-            print("{:<3d} - {:<40s} = ${:>7,.2f} *".format(item_count, name + " (" + desc + ") ", float(price)))
+        name, item_desc, cost, status = line_list[index].split(',')
+        if 'out' in status:
+            print("{:} - {:<40s} = ${:>7,.2f} *".format(item_count, name + " (" + item_desc + ") ", float(cost)))
             list_num.append(item_count)
         item_count += 1
 
@@ -90,13 +98,20 @@ def item_return():
                 with open('items.csv', 'w') as file:
                     file.writelines(item_lines_list)
                     name, desc, price, hire = line_list[replace].split(',')
-                    print(name, "returned.")
+                    print(name, "returned.")  #(2)
             else:
-                print("Item is not available.\n")
+                print("That item is not available for rent".\n")  #(3)
         except:
             print("Invalid input")
 
-    file.close()  # every file needs to be closed after their job is done
+    file.close()
+    """
+    this function will modify the status element in the strings in items.csv
+    (2)it will change the hired item's status from "out" to "in"
+    this function will only show hired items
+    (4)after the user successfully returned an item, the confirmation message will show up
+    (5)if the user input a number thats not in the list, an message will show up "That item is not available for rent"
+    """
 
 
 while True: #when the user enters "q" it will end the program
@@ -126,7 +141,7 @@ while True: #when the user enters "q" it will end the program
         while len(item_desc)<=0:
             print("Please input a valid description")
             item_desc = (input("Description:"))
-        try: #to error check the cost by putting a ValueError exception
+        try:  #to error check the cost by putting a ValueError exception
             cost = int(input("Cost:"))
         except ValueError:
             print("Please enter a valid integer")
@@ -140,7 +155,7 @@ while True: #when the user enters "q" it will end the program
         num_lines += 1
 
 
-    else:
+    else:  #will call item_return()
         item_return()
         userInput = input(menu)
 
