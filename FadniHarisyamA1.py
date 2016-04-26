@@ -60,8 +60,8 @@ def item_hire():
                 item_lines_list[replace] = item_lines_list[replace].replace('in', 'out')  #(2)
                 with open('items.csv', 'w') as file:
                     file.writelines(item_lines_list)
-                    name, desc, price, hire = line_list[replace].split(',')
-                    print("{} is hired for ${:.2f}".format(name, float(price)))  #(4)
+                    name, item_desc, cost, status = line_list[replace].split(',')
+                    print("{} is hired for ${:.2f}".format(name, float(cost)))  #(4)
             else:
                 print("That item is not available for hire")  #(5)
         except:
@@ -94,23 +94,23 @@ def item_return():
 
             replace = int(input("Enter the number of an item to return:\n"))
             if replace in list_num:
-                item_lines_list[replace] = item_lines_list[replace].replace('out', 'in')
+                item_lines_list[replace] = item_lines_list[replace].replace('out', 'in')  #(1)
                 with open('items.csv', 'w') as file:
                     file.writelines(item_lines_list)
                     name, desc, price, hire = line_list[replace].split(',')
                     print(name, "returned.")  #(2)
             else:
-                print("That item is not available for rent".\n")  #(3)
+                print("That item is not available for rent.")   #(3)
         except:
             print("Invalid input")
-
     file.close()
+
     """
     this function will modify the status element in the strings in items.csv
-    (2)it will change the hired item's status from "out" to "in"
+    (1)it will change the hired item's status from "out" to "in"
     this function will only show hired items
-    (4)after the user successfully returned an item, the confirmation message will show up
-    (5)if the user input a number thats not in the list, an message will show up "That item is not available for rent"
+    (2)after the user successfully returned an item, the confirmation message will show up
+    (3)if the user input a number thats not in the list, an message will show up "That item is not available for rent"
     """
 
 
@@ -155,19 +155,10 @@ while True: #when the user enters "q" it will end the program
         num_lines += 1
 
 
-    else:  #will call item_return()
+    elif userInput == "r":  #call item_return() when the user input "r"
         item_return()
         userInput = input(menu)
 
-
-
-
-
-
-
-
-
-
-
-
-
+    else:  #if the user input something that is not in the menu, it will show an error message
+        print("Invalid Input")
+        userInput = input(menu)
