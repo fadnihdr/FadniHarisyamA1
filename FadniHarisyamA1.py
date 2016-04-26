@@ -32,15 +32,10 @@ def item_hire():
         user_hire = input("Enter the number of item to hire")
 """
 
-def item_add(name,item_desc,cost):
-    with open('items.csv','a+') as items:
-        items.write("\n" + name + "," + item_desc + "," +  cost + "," + "in")
-    items.close()
-
 
 while True:
     if userInput == "q":
-        print ("{} items saved to items.csv")
+        print ("{} items saved to items.csv".format(num_lines))
         break
     elif userInput == "l":
         item_list()
@@ -51,10 +46,24 @@ while True:
         item_list()
         userInput = input(menu).lower()
     elif userInput == "a":
-        name = (input("Name:\n"))
-        item_desc = (input("Description:\n"))
-        cost = (input("Cost:\n"))
-        item_add(name,item_desc,cost)
+        name = (input("Name:"))
+        while len(name)<=0:
+            print("Please input a valid name")
+            name = (input("Name:"))
+        item_desc = (input("Description:"))
+        while len(item_desc)<=0:
+            print("Please input a valid description")
+            item_desc = (input("Description:"))
+        try:
+            cost = int(input("Cost:"))
+        except ValueError:
+            print("Please enter a valid integer")
+            cost = int(input("Cost:"))
+        items_write = open('items.csv', 'a')
+        print((name + "," + item_desc + "," + str(cost) + "," + "in\n"), file=items_write)
+        items_write.close()
+        print("\n{} ({}), ${:.2f} now available for hire.".format(name, item_desc, cost))
+        num_lines = + 1
         userInput = input(menu).lower()
 
 
