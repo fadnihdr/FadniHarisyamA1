@@ -105,13 +105,41 @@ def item_return():
             print("Invalid input")
     file.close()
 
-    """
-    this function will modify the status element in the strings in items.csv
-    (1)it will change the hired item's status from "out" to "in"
-    this function will only show hired items
-    (2)after the user successfully returned an item, the confirmation message will show up
-    (3)if the user input a number thats not in the list, an message will show up "That item is not available for rent"
-    """
+
+"""
+this function will modify the status element in the strings in items.csv
+(1)it will change the hired item's status from "out" to "in"
+this function will only show hired items
+(2)after the user successfully returned an item, the confirmation message will show up
+(3)if the user input a number thats not in the list, an message will show up "That item is not available for rent"
+"""
+
+def item_append():
+    """when the user enters "a" it will ask the user's item name,
+        description, and cost, and add them to the csv file"""
+
+
+    name = (input("Name:"))
+    while len(name) <= 0:
+        print("Please input a valid name")
+        name = (input("Name:"))
+    item_desc = (input("Description:"))
+    while len(item_desc) <= 0:
+        print("Please input a valid description")
+        item_desc = (input("Description:"))
+    try:  # to error check the cost by putting a ValueError exception
+        cost = int(input("Cost:"))
+    except ValueError:
+        print("Please enter a valid integer")
+        cost = int(input("Cost:"))
+    items_write = open('items.csv', 'a')
+    print((name + "," + item_desc + "," + str(cost) + "," + "in"), file=items_write)
+    items_write.close()
+    print(name, item_desc, cost)
+    print("\n{} ({}), ${:.2f} now available for hire.".format(name, item_desc, cost))
+    userInput = input(menu).lower()
+    num_lines += 1
+
 
 
 while True: #when the user enters "q" it will end the program
@@ -131,28 +159,8 @@ while True: #when the user enters "q" it will end the program
 
 
     elif userInput == "a":
-        """when the user enters "a" it will ask the user's item name,
-                    description, and cost, and add them to the csv file"""
-        name = (input("Name:"))
-        while len(name)<=0:
-            print("Please input a valid name")
-            name = (input("Name:"))
-        item_desc = (input("Description:"))
-        while len(item_desc)<=0:
-            print("Please input a valid description")
-            item_desc = (input("Description:"))
-        try:  #to error check the cost by putting a ValueError exception
-            cost = int(input("Cost:"))
-        except ValueError:
-            print("Please enter a valid integer")
-            cost = int(input("Cost:"))
-        items_write = open('items.csv', 'a')
-        print((name + "," + item_desc + "," + str(cost) + "," + "in"), file=items_write)
-        items_write.close()
-        print(name, item_desc, cost)
-        print("\n{} ({}), ${:.2f} now available for hire.".format(name, item_desc, cost))
+        item_append()
         userInput = input(menu).lower()
-        num_lines += 1
 
 
     elif userInput == "r":  #call item_return() when the user input "r"
